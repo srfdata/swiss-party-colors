@@ -40,8 +40,8 @@ The package downloads the color definitions from this [Google Spreadsheet](https
 If you want to use the colors in your frontend javascript development, you can install the package as a node module:
 
 ```
-npm install -d swiss-party-colors
-yarn add -D swiss-party-colors
+npm install swiss-party-colors
+yarn add swiss-party-colors
 ```
 
 Afterwards, import the function you want to use in the language of choice:

@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "description": "A list of Swiss party colors, names and abbreviations to use in data visualizations",
   "scripts": {
-    "download": "gsheets --key 1PCD3se4Nc4ME-i391yPYyAlLdgtXoZJFoJy_6Mlf7BY --title colors --out definitions.json --pretty",
+    "download": "gsheets --key 1PCD3se4Nc4ME-i391yPYyAlLdgtXoZJFoJy_6Mlf7BY --title colors --out definitions.json",
     "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/srfdata/swiss-party-colors"
   },
   "main": "./index.js",
   "keywords": [

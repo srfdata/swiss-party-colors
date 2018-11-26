@@ -25,7 +25,9 @@
    * @param {string} lang language code, either 'de', 'fr' or 'it'
    */
   function getPartyFunctionForLanguage (lang) {
+    lang = lang.toLowerCase()
     return function getParty (abbr) {
+      abbr = abbr.toUpperCase()
       if (available_languages.indexOf(lang) < 0) {
         throw new Error(
           `the requested language ${lang} is not available. Chose either 'de', 'fr' or 'it'`

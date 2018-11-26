@@ -1,3 +1,5 @@
+var distinct = (v, i, a) => a.indexOf(v) === i
+
 var getPartyDE = require('./index.js').getPartyDE
 var getPartyFR = require('./index.js').getPartyFR
 var getPartyIT = require('./index.js').getPartyIT
@@ -26,6 +28,15 @@ var getPartyFontColorOnBlackIT = require('./index.js')
   .getPartyFontColorOnBlackIT
 
 var definitions = require('./definitions.json').data
+
+var langCodes = [ 'de', 'fr', 'it' ]
+
+langCodes.forEach(langCode => {
+  test(`abbreviations in ${langCode.toUpperCase()} are unique`, () => {
+    const abbreviations = definitions.map(d => d[`abbr_${langCode}`])
+    expect(abbreviations.length === abbreviations.filter(distinct).length)
+  })
+})
 
 var bigSeven = definitions.filter(
   party =>
