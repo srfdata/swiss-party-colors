@@ -1,0 +1,25 @@
+{
+  "name": "swiss-party-colors",
+  "version": "1.0.0",
+  "description": "A list of Swiss party colors, names and abbreviations to use in data visualizations",
+  "scripts": {
+    "download": "gsheets --key 1PCD3se4Nc4ME-i391yPYyAlLdgtXoZJFoJy_6Mlf7BY --title colors --out definitions.json --pretty",
+    "test": "jest"
+  },
+  "main": "./index.js",
+  "keywords": [
+    "swiss",
+    "switzerland",
+    "politics",
+    "parties",
+    "party",
+    "color",
+    "colors"
+  ],
+  "author": "@angelozehr",
+  "license": "MIT",
+  "devDependencies": {
+    "gsheets": "^2.0.0",
+    "jest": "^23.6.0"
+  }
+}
