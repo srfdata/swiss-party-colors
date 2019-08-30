@@ -55,7 +55,18 @@ import { getPartyFontColorDE as getPartyFontColor } from 'swiss-party-colors'
 import { getPartyFontColorOnBlackDE as getPartyFontColorOnBlack } from 'swiss-party-colors'
 ```
 
-#### `getParty(abbreviation)`
+or use the generic version, in cases where the language is set on runtime:
+
+```
+import { getParty } from 'swiss-party-colors'
+import { getPartyName } from 'swiss-party-colors'
+import { getPartyColor } from 'swiss-party-colors'
+import { getBlackOrWhite } from 'swiss-party-colors'
+import { getPartyFontColor } from 'swiss-party-colors'
+import { getPartyFontColorOnBlack } from 'swiss-party-colors'
+```
+
+#### `getParty(abbreviation)` (generic: `getParty(language, abbreviation)`)
 
 Returns an object for a given party abbreviation with the following properties:
 
@@ -66,23 +77,23 @@ Returns an object for a given party abbreviation with the following properties:
 - `fontColor`: the font color as a hex code
 - `fontColorOnBlack`: the font color for dark backgrounds as a hex code
 
-#### `getPartyName(abbreviation)`
+#### `getPartyName(abbreviation)` (generic: `getPartyName(language, abbreviation)`)
 
 Returns the full party name for a given party abbreviation
 
-#### `getPartyColor(abbreviation)`
+#### `getPartyColor(abbreviation)` (generic: `getPartyColor(language, abbreviation)`)
 
 Returns the the main color as a hex code for a given party abbreviation
 
-#### `getBlackOrWhite(abbreviation)`
+#### `getBlackOrWhite(abbreviation)` (generic: `getBlackOrWhite(language, abbreviation)`)
 
 Returns black or white as a hex code for a given party abbreviation
 
-#### `getPartyFontColor(abbreviation)`
+#### `getPartyFontColor(abbreviation)` (generic: `getPartyFontColor(laguage, abbreviation)`)
 
 Returns the font color as a hex code for a given party abbreviation
 
-#### `getPartyFontColorOnBlack(abbreviation)`
+#### `getPartyFontColorOnBlack(abbreviation)` (generic: `getPartyFontColorOnBlack(language, abbreviation)`)
 
 Returns the font color for dark backgrounds as a hex code for a given party abbreviation
 
