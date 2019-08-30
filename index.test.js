@@ -117,3 +117,58 @@ bigSeven.forEach(party => {
     expect(getPartyFontColorOnBlackIT(party.abbr_it)).toBe(party.on_black)
   })
 })
+
+// region Test Generic, language-independent functions
+
+const getParty = require('./index').getParty
+const getPartyName = require('./index').getPartyName
+const getPartyColor = require('./index').getPartyColor
+const getBlackOrWhite = require('./index').getBlackOrWhite
+const getPartyFontColor = require('./index').getPartyFontColor
+const getPartyFontColorOnBlack = require('./index').getPartyFontColorOnBlack
+
+describe.each(bigSeven.map(party => ([party.abbr_de, party])))(
+  'Get properties for %p',
+  (partyAbbreviation, party) => {
+    describe.each(langCodes)(
+      'In %p',
+      (language) => {
+        test('getParty() returns correct party definition object', () => {
+          const partyDefinition = getParty(language, party['abbr_' + language])
+          expect(partyDefinition).toHaveProperty('name', party['name_' + language])
+          expect(partyDefinition).toHaveProperty('abbr', party['abbr_' + language])
+          expect(partyDefinition).toHaveProperty('color', party.color)
+          expect(partyDefinition).toHaveProperty('blackOrWhite', party.on_color)
+          expect(partyDefinition).toHaveProperty('fontColor', party.on_white)
+          expect(partyDefinition).toHaveProperty('fontColorOnBlack', party.on_black)
+        })
+
+        test('getPartyName() returns correct party name', () => {
+          const partyName = getPartyName(language, party['abbr_' + language])
+          expect(partyName).toBe(party['name_' + language])
+        })
+
+        test('getPartyColor() returns correct color', () => {
+          const partyColor = getPartyColor(language, party['abbr_' + language])
+          expect(partyColor).toBe(party.color)
+        })
+
+        test('getBlackOrWhite() returns correct color', () => {
+          const blackOrWhite = getBlackOrWhite(language, party['abbr_' + language])
+          expect(blackOrWhite).toBe(party.on_color)
+        })
+
+        test('getPartyFontColor() returns correct color', () => {
+          const fontColor = getPartyFontColor(language, party['abbr_' + language])
+          expect(fontColor).toBe(party.on_white)
+        })
+
+        test('getPartyFontColorOnBlack() returns correct color', () => {
+          const fontColor = getPartyFontColorOnBlack(language, party['abbr_' + language])
+          expect(fontColor).toBe(party.on_black)
+        })
+      }
+    )
+  })
+
+// endregion
