@@ -24,6 +24,6 @@
   "license": "MIT",
   "devDependencies": {
     "gsheets": "^2.0.0",
-    "jest": "^23.6.0"
+    "jest": "^24.9.0"
   }
 }

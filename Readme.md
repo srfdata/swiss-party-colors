@@ -10,6 +10,7 @@ For each party, the following attributes are defined:
 - **Abbreviation**: or short `abbr` in German, French or Italian
 - **Name**: the full name of the party in German, French or Italian
 - **Color**: the main color that can be used for data visualization
+- **Black/White**: write with either black or white on areas that have the main color
 - **Font Color**: a font color to use for text on white backgrounds
 - **Font Color on Black**: a font color to use for text on black backgrounds
 
