@@ -9,7 +9,7 @@
 
   /**
    * The available languages
-   * @typedef {'de' | 'fr' | 'it'} LanguageCodes
+   * @typedef {'de' | 'fr' | 'it', 'ro'} LanguageCodes
    */
 
   /**
@@ -26,7 +26,7 @@
   var colors = require('./definitions.json')
 
   /** @type {LanguageCodes[]} */
-  var available_languages = [ 'de', 'fr', 'it' ]
+  var available_languages = [ 'de', 'fr', 'it', 'ro' ]
 
   /**
    * Fallback object in cases where the party can't be found for some reason
@@ -52,7 +52,7 @@
       abbr = abbr.toUpperCase()
       if (available_languages.indexOf(lang) < 0) {
         throw new Error(
-          `the requested language ${lang} is not available. Chose either 'de', 'fr' or 'it'`
+          `the requested language ${lang} is not available. Chose either 'de', 'fr', 'it' or 'ro'`
         )
       } else {
         const party = colors.data.find(party => party[`abbr_${lang}`] === abbr)
@@ -86,6 +86,7 @@
   var getPartyDE = getPartyFunctionForLanguage('de')
   var getPartyFR = getPartyFunctionForLanguage('fr')
   var getPartyIT = getPartyFunctionForLanguage('it')
+  var getPartyRO = getPartyFunctionForLanguage('ro')
 
   /**
    * Get party name, using the specified language
@@ -93,7 +94,7 @@
    * @param abbr {string}
    * @return {string}
    */
-  function getPartyName(lang, abbr) {
+  function getPartyName (lang, abbr) {
     var party = getPartyFunctionForLanguage(lang)(abbr)
     if (party) return party.name
   }
@@ -113,13 +114,18 @@
     if (party) return party.name
   }
 
+  function getPartyNameRO (abbr) {
+    var party = getPartyRO(abbr)
+    if (party) return party.name
+  }
+
   /**
    * Get the party color, using the specified language
    * @param lang {LanguageCodes}
    * @param abbr {string}
    * @return {string}
    */
-  function getPartyColor(lang, abbr) {
+  function getPartyColor (lang, abbr) {
     var party = getPartyFunctionForLanguage(lang)(abbr)
     if (party) return party.color
   }
@@ -136,6 +142,11 @@
 
   function getPartyColorIT (abbr) {
     var party = getPartyIT(abbr)
+    if (party) return party.color
+  }
+
+  function getPartyColorRO (abbr) {
+    var party = getPartyRO(abbr)
     if (party) return party.color
   }
 
@@ -161,6 +172,11 @@
 
   function getBlackOrWhiteIT (abbr) {
     var party = getPartyIT(abbr)
+    if (party) return party.blackOrWhite
+  }
+
+  function getBlackOrWhiteRO (abbr) {
+    var party = getPartyRO(abbr)
     if (party) return party.blackOrWhite
   }
 
@@ -190,6 +206,11 @@
     if (party) return party.fontColor
   }
 
+  function getPartyFontColorRO (abbr) {
+    var party = getPartyRO(abbr)
+    if (party) return party.fontColor
+  }
+
   /**
    * Return the party color for use as a text color on a dark background.
    * @param lang {LanguageCodes}
@@ -216,35 +237,46 @@
     if (party) return party.fontColorOnBlack
   }
 
+  function getPartyFontColorOnBlackRO (abbr) {
+    var party = getPartyRO(abbr)
+    if (party) return party.fontColorOnBlack
+  }
+
   exports.getParty = getParty
   exports.getPartyDE = getPartyDE
   exports.getPartyFR = getPartyFR
   exports.getPartyIT = getPartyIT
+  exports.getPartyRO = getPartyRO
 
   exports.getPartyName = getPartyName
   exports.getPartyNameDE = getPartyNameDE
   exports.getPartyNameFR = getPartyNameFR
   exports.getPartyNameIT = getPartyNameIT
+  exports.getPartyNameRO = getPartyNameRO
 
   exports.getPartyColor = getPartyColor
   exports.getPartyColorDE = getPartyColorDE
   exports.getPartyColorFR = getPartyColorFR
   exports.getPartyColorIT = getPartyColorIT
+  exports.getPartyColorRO = getPartyColorRO
 
   exports.getBlackOrWhite = getBlackOrWhite
   exports.getBlackOrWhiteDE = getBlackOrWhiteDE
   exports.getBlackOrWhiteFR = getBlackOrWhiteFR
   exports.getBlackOrWhiteIT = getBlackOrWhiteIT
+  exports.getBlackOrWhiteRO = getBlackOrWhiteRO
 
   exports.getPartyFontColor = getPartyFontColor
   exports.getPartyFontColorDE = getPartyFontColorDE
   exports.getPartyFontColorFR = getPartyFontColorFR
   exports.getPartyFontColorIT = getPartyFontColorIT
+  exports.getPartyFontColorRO = getPartyFontColorRO
 
   exports.getPartyFontColorOnBlack = getPartyFontColorOnBlack
   exports.getPartyFontColorOnBlackDE = getPartyFontColorOnBlackDE
   exports.getPartyFontColorOnBlackFR = getPartyFontColorOnBlackFR
   exports.getPartyFontColorOnBlackIT = getPartyFontColorOnBlackIT
+  exports.getPartyFontColorOnBlackRO = getPartyFontColorOnBlackRO
 
   Object.defineProperty(exports, '__esModule', { value: true })
 })
