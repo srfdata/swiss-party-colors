@@ -201,3 +201,69 @@ describe.each(bigSeven)('Get properties for %p', party => {
 })
 
 // endregion
+
+// region Test Functions that gets data by id
+
+var getPartyById = require('./index.js').getPartyById
+var getPartyAbbrById = require('./index.js').getPartyAbbrById
+var getPartyNameById = require('./index.js').getPartyNameById
+var getPartyById = require('./index.js').getPartyById
+var getPartyColorById = require('./index.js').getPartyColorById
+var getBlackOrWhiteById = require('./index.js').getBlackOrWhiteById
+var getPartyFontColorById = require('./index.js').getPartyFontColorById
+var getPartyFontColorOnBlackById = require('./index.js')
+  .getPartyFontColorOnBlackById
+
+describe.each(bigSeven)('Get properties for %p', party => {
+  // language specific functions
+  describe.each(langCodes)('In %p', language => {
+    test('getPartyById() returns correct party definition object', () => {
+      const partyDefinition = getPartyById(party.id, language)
+      expect(partyDefinition).toHaveProperty('name', party['name_' + language])
+      expect(partyDefinition).toHaveProperty('abbr', party['abbr_' + language])
+      expect(partyDefinition).toHaveProperty('color', party.color)
+      expect(partyDefinition).toHaveProperty('blackOrWhite', party.on_color)
+      expect(partyDefinition).toHaveProperty('fontColor', party.on_white)
+      expect(partyDefinition).toHaveProperty('fontColorOnBlack', party.on_black)
+    })
+
+    test('getPartyAbbrById() returns correct party abbr', () => {
+      const partyAbbr = getPartyAbbrById(party.id, language)
+      expect(partyAbbr).toBe(party['abbr_' + language])
+    })
+
+    test('getPartyNameById() returns correct party name', () => {
+      const partyName = getPartyNameById(party.id, language)
+      expect(partyName).toBe(party['name_' + language])
+    })
+  })
+
+  test('getPartyById() returns german as default party definition', () => {
+    const partyDefinitionGerman = getPartyById(party.id, 'de')
+    const partyDefinitionDefault = getPartyById(party.id)
+    expect(partyDefinitionDefault).toEqual(partyDefinitionGerman)
+  })
+
+  // non language specific functions
+  test('getPartyColorById() returns correct color', () => {
+    const partyColor = getPartyColorById(party.id)
+    expect(partyColor).toBe(party.color)
+  })
+
+  test('getBlackOrWhiteById() returns correct color', () => {
+    const blackOrWhite = getBlackOrWhiteById(party.id)
+    expect(blackOrWhite).toBe(party.on_color)
+  })
+
+  test('getPartyFontColorById() returns correct color', () => {
+    const fontColor = getPartyFontColorById(party.id)
+    expect(fontColor).toBe(party.on_white)
+  })
+
+  test('getPartyFontColorOnBlackById() returns correct color', () => {
+    const fontColor = getPartyFontColorOnBlackById(party.id)
+    expect(fontColor).toBe(party.on_black)
+  })
+})
+
+// endregion
