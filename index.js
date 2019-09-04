@@ -9,7 +9,9 @@
 
   /**
    * The available languages
-   * @typedef {'de' | 'fr' | 'it', 'ro'} LanguageCodes
+   * @typedef {'de' | 'fr' | 'it' | 'ro'} LanguageCodes
+   * Colors are defined as hex codes
+   * @typedef {string} Color - A color as a hex code e.g. #123456
    */
 
   /**
@@ -17,10 +19,10 @@
    * @typedef {Object} PartyDefinition
    * @property {string} abbr - The commonly used abbrevation of the party
    * @property {string} name - The official name of the party
-   * @property {string} color - The color for use on larger color patches
-   * @property {string} blackOrWhite - The color for the text displayed on patches of that color
-   * @property {string} fontColor - A tweaked version of the color for use as a text color on light backgrounds
-   * @property {string} fontColorOnBlack - A tweaked version of the color for use as a text color on dark backgrounds
+   * @property {Color} color - The hex color for use on larger color patches
+   * @property {Color} blackOrWhite - The hex color for the text displayed on patches of that color
+   * @property {Color} fontColor - A tweaked version of the hex color for use as a text color on light backgrounds
+   * @property {Color} fontColorOnBlack - A tweaked version of the hex color for use as a text color on dark backgrounds
    */
 
   var colors = require('./definitions.json')
@@ -42,9 +44,9 @@
   }
 
   /**
-   * This function returns another function that can be used directly without defining the language code again
-   * @param {LanguageCodes} lang language code, either 'de', 'fr' or 'it'
-   * @return {Function}
+   * Get a function that returns a party definition for an abbreviation in the given language
+   * @param {LanguageCodes} lang language code that the abbreviations will be in when called
+   * @return {Function} getParty
    */
   function getPartyFunctionForLanguage (lang) {
     lang = lang.toLowerCase()
@@ -75,9 +77,9 @@
   }
 
   /**
-   *
-   * @param {LanguageCodes} lang
-   * @param {string} abbr
+   * Get the complete party definition for a given abbreviation
+   * @param {LanguageCodes} lang Language that the abbreviation is in
+   * @param {string} abbr Abbreviation of the party in question
    * @return {PartyDefinition}
    */
   var getParty = (lang, abbr) => getPartyFunctionForLanguage(lang)(abbr)
@@ -89,154 +91,265 @@
   var getPartyRO = getPartyFunctionForLanguage('ro')
 
   /**
-   * Get party name, using the specified language
-   * @param lang {LanguageCodes}
-   * @param abbr {string}
-   * @return {string}
+   * Get party name by language and abbreviation
+   * @param lang {LanguageCodes} The language of the abbreviation and the party name
+   * @param abbr {string} Abbreviation of the party in the lang specified
+   * @return {string} Name of the party in the lang specified
    */
   function getPartyName (lang, abbr) {
     var party = getPartyFunctionForLanguage(lang)(abbr)
     if (party) return party.name
   }
 
+  /**
+   * Get party name by abbreviation
+   * @param abbr {string} Abbreviation of the party in German
+   * @return {string} Name of the party in German
+   */
   function getPartyNameDE (abbr) {
     var party = getPartyDE(abbr)
     if (party) return party.name
   }
 
+  /**
+   * Get party name by abbreviation
+   * @param abbr {string} Abbreviation of the party in French
+   * @return {string} Name of the party in French
+   */
   function getPartyNameFR (abbr) {
     var party = getPartyFR(abbr)
     if (party) return party.name
   }
 
+  /**
+   * Get party name by abbreviation
+   * @param abbr {string} Abbreviation of the party in Italian
+   * @return {string} Name of the party in Italian
+   */
   function getPartyNameIT (abbr) {
     var party = getPartyIT(abbr)
     if (party) return party.name
   }
 
+  /**
+   * Get party name by abbreviation
+   * @param abbr {string} Abbreviation of the party in Rhaeto-Romanic
+   * @return {string} Name of the party in Rhaeto-Romanic
+   */
   function getPartyNameRO (abbr) {
     var party = getPartyRO(abbr)
     if (party) return party.name
   }
 
   /**
-   * Get the party color, using the specified language
-   * @param lang {LanguageCodes}
-   * @param abbr {string}
-   * @return {string}
+   * Get party name by language and abbreviation
+   * @param lang {LanguageCodes} The language of the abbreviation
+   * @param abbr {string} Abbreviation of the party in the lang specified
+   * @return {string} Primary party color as hex
    */
   function getPartyColor (lang, abbr) {
     var party = getPartyFunctionForLanguage(lang)(abbr)
     if (party) return party.color
   }
 
+  /**
+   * Get primary party color by abbreviation
+   * @param abbr {string} Abbreviation of the party in German
+   * @return {Color} Primary party color as hex
+   */
   function getPartyColorDE (abbr) {
     var party = getPartyDE(abbr)
     if (party) return party.color
   }
 
+  /**
+   * Get primary party color by abbreviation
+   * @param abbr {string} Abbreviation of the party in French
+   * @return {Color} Primary party color as hex
+   */
   function getPartyColorFR (abbr) {
     var party = getPartyFR(abbr)
     if (party) return party.color
   }
 
+  /**
+   * Get primary party color by abbreviation
+   * @param abbr {string} Abbreviation of the party in Italian
+   * @return {Color} Primary party color as hex
+   */
   function getPartyColorIT (abbr) {
     var party = getPartyIT(abbr)
     if (party) return party.color
   }
 
+  /**
+   * Get primary party color by abbreviation
+   * @param abbr {string} Abbreviation of the party in Rhaeto-Romanic
+   * @return {Color} Primary party color as hex
+   */
   function getPartyColorRO (abbr) {
     var party = getPartyRO(abbr)
     if (party) return party.color
   }
 
   /**
-   * Return whether the text on the coloured background should be black or white, according to accessibility standards.
-   * @param lang {LanguageCodes}
-   * @param abbr {string}
-   * @return {string}
+   * Get black or white for text on a primary colored background by language and abbreviation
+   * @param lang {LanguageCodes} The language of the abbreviation
+   * @param abbr {string} Abbreviation of the party in the lang specified
+   * @return {Color} Either #FFF or #000
    */
   function getBlackOrWhite (lang, abbr) {
     var party = getPartyFunctionForLanguage(lang)(abbr)
     if (party) return party.blackOrWhite
   }
+
+  /**
+   * Get black or white for text on a primary colored background by abbreviation
+   * @param abbr {string} Abbreviation of the party in German
+   * @return {Color} Either #FFF or #000
+   */
   function getBlackOrWhiteDE (abbr) {
     var party = getPartyDE(abbr)
     if (party) return party.blackOrWhite
   }
 
+  /**
+   * Get black or white for text on a primary colored background by abbreviation
+   * @param abbr {string} Abbreviation of the party in French
+   * @return {Color} Either #FFF or #000
+   */
   function getBlackOrWhiteFR (abbr) {
     var party = getPartyFR(abbr)
     if (party) return party.blackOrWhite
   }
 
+  /**
+   * Get black or white for text on a primary colored background by abbreviation
+   * @param abbr {string} Abbreviation of the party in Italian
+   * @return {Color} Either #FFF or #000
+   */
   function getBlackOrWhiteIT (abbr) {
     var party = getPartyIT(abbr)
     if (party) return party.blackOrWhite
   }
 
+  /**
+   * Get black or white for text on a primary colored background by abbreviation
+   * @param abbr {string} Abbreviation of the party in Rhaeto-Romanic
+   * @return {Color} Either #FFF or #000
+   */
   function getBlackOrWhiteRO (abbr) {
     var party = getPartyRO(abbr)
     if (party) return party.blackOrWhite
   }
 
   /**
-   * Return the party color for use as text color
-   * @param lang {LanguageCodes}
-   * @param abbr {string}
-   * @return {string}
+   * Get the party color for use as text color on white by langauge and abbreviation. This color is often darker than
+   * the primary party color so it can be used on a white background and maintain a contrast ratio of at least 1:4.5
+   * @param lang {LanguageCodes} The language of the abbreviation
+   * @param abbr {string} Abbreviation of the party in the lang specified
+   * @return {Color} Accessibility friendly, dark party color as hex
    */
   function getPartyFontColor (lang, abbr) {
     var party = getPartyFunctionForLanguage(lang)(abbr)
     if (party) return party.fontColor
   }
 
+  /**
+   * Get the party color for use as text color on white by langauge and abbreviation. This color is often darker than
+   * the primary party color so it can be used on a white background and maintain a contrast ratio of at least 1:4.5
+   * @param abbr {string} Abbreviation of the party in German
+   * @return {Color} Accessibility friendly, dark party color as hex
+   */
   function getPartyFontColorDE (abbr) {
     var party = getPartyDE(abbr)
     if (party) return party.fontColor
   }
 
+  /**
+   * Get the party color for use as text color on white by langauge and abbreviation. This color is often darker than
+   * the primary party color so it can be used on a white background and maintain a contrast ratio of at least 1:4.5
+   * @param abbr {string} Abbreviation of the party in French
+   * @return {Color} Accessibility friendly, dark party color as hex
+   */
   function getPartyFontColorFR (abbr) {
     var party = getPartyFR(abbr)
     if (party) return party.fontColor
   }
 
+  /**
+   * Get the party color for use as text color on white by langauge and abbreviation. This color is often darker than
+   * the primary party color so it can be used on a white background and maintain a contrast ratio of at least 1:4.5
+   * @param abbr {string} Abbreviation of the party in Italian
+   * @return {Color} Accessibility friendly, dark party color as hex
+   */
   function getPartyFontColorIT (abbr) {
     var party = getPartyIT(abbr)
     if (party) return party.fontColor
   }
 
+  /**
+   * Get the party color for use as text color on white by langauge and abbreviation. This color is often darker than
+   * the primary party color so it can be used on a white background and maintain a contrast ratio of at least 1:4.5
+   * @param abbr {string} Abbreviation of the party in Rhaeto-Roman
+   * @return {Color} Accessibility friendly, dark party color as hex
+   */
   function getPartyFontColorRO (abbr) {
     var party = getPartyRO(abbr)
     if (party) return party.fontColor
   }
 
   /**
-   * Return the party color for use as a text color on a dark background.
-   * @param lang {LanguageCodes}
-   * @param abbr {string}
-   * @return {string}
+   * Get the party color for use as text color on black by langauge and abbreviation. This color is often brighter than
+   * the primary party color so it can be used on a black background and maintain a contrast ratio of at least 1:4.5
+   * @param lang {LanguageCodes} The language of the abbreviation
+   * @param abbr {string} Abbreviation of the party in the lang specified
+   * @return {Color} Accessibility friendly, dark party color as hex
    */
   function getPartyFontColorOnBlack (lang, abbr) {
     var party = getPartyFunctionForLanguage(lang)(abbr)
     if (party) return party.fontColorOnBlack
   }
 
+  /**
+   * Get the party color for use as text color on black by langauge and abbreviation. This color is often brighter than
+   * the primary party color so it can be used on a black background and maintain a contrast ratio of at least 1:4.5
+   * @param abbr {string} Abbreviation of the party in German
+   * @return {Color} Accessibility friendly, bright party color as hex
+   */
   function getPartyFontColorOnBlackDE (abbr) {
     var party = getPartyDE(abbr)
     if (party) return party.fontColorOnBlack
   }
 
+  /**
+   * Get the party color for use as text color on black by langauge and abbreviation. This color is often brighter than
+   * the primary party color so it can be used on a black background and maintain a contrast ratio of at least 1:4.5
+   * @param abbr {string} Abbreviation of the party in French
+   * @return {Color} Accessibility friendly, bright party color as hex
+   */
   function getPartyFontColorOnBlackFR (abbr) {
     var party = getPartyFR(abbr)
     if (party) return party.fontColorOnBlack
   }
 
+  /**
+   * Get the party color for use as text color on black by langauge and abbreviation. This color is often brighter than
+   * the primary party color so it can be used on a black background and maintain a contrast ratio of at least 1:4.5
+   * @param abbr {string} Abbreviation of the party in Italian
+   * @return {Color} Accessibility friendly, bright party color as hex
+   */
   function getPartyFontColorOnBlackIT (abbr) {
     var party = getPartyIT(abbr)
     if (party) return party.fontColorOnBlack
   }
 
+  /**
+   * Get the party color for use as text color on black by langauge and abbreviation. This color is often brighter than
+   * the primary party color so it can be used on a black background and maintain a contrast ratio of at least 1:4.5
+   * @param abbr {string} Abbreviation of the party in Rhaeto-Roman
+   * @return {Color} Accessibility friendly, bright party color as hex
+   */
   function getPartyFontColorOnBlackRO (abbr) {
     var party = getPartyRO(abbr)
     if (party) return party.fontColorOnBlack
