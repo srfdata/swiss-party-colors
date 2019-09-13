@@ -58,19 +58,25 @@
       abbr = abbr.toUpperCase()
       if (available_languages.indexOf(lang) < 0) {
         throw new Error(
-          `the requested language ${lang} is not available. Chose either 'de', 'fr', 'it' or 'ro'`
+          'the requested language ' +
+            lang +
+            ' is not available. Chose either "de", "fr", "it" or "ro"'
         )
       } else {
-        const party = colors.data.find(party => party[`abbr_${lang}`] === abbr)
+        const party = colors.data.find(party => party['abbr_' + lang] === abbr)
         if (!party) {
           console.error(
-            `Error in getParty: party ${abbr} not found in lang ${lang}, returning fallback color`
+            'Error in getParty: party ' +
+              abbr +
+              ' not found in lang ' +
+              lang +
+              ', returning fallback color'
           )
           return fallBackColor
         }
         return {
-          abbr: party[`abbr_${lang}`],
-          name: party[`name_${lang}`],
+          abbr: party['abbr_' + lang],
+          name: party['name_' + lang],
           color: party.color,
           blackOrWhite: party.on_color,
           fontColor: party.on_white,
@@ -89,20 +95,24 @@
   var getPartyById = (id, lang = 'de') => {
     if (available_languages.indexOf(lang) < 0) {
       throw new Error(
-        `the requested language ${lang} is not available. Chose either 'de', 'fr', 'it' or 'ro'`
+        'the requested language ' +
+          lang +
+          ' is not available. Chose either "de", "fr", "it" or "ro"'
       )
     } else {
       var availableIds = colors.data.map(d => d.id)
       if (!availableIds.includes(id)) {
         console.error(
-          `the requested party id ${id} is not available, returning fallback color`
+          'the requested party id ' +
+            id +
+            ' is not available, returning fallback color'
         )
         return fallBackColor
       }
       const party = colors.data.find(d => d.id === id)
       return {
-        abbr: party[`abbr_${lang}`],
-        name: party[`name_${lang}`],
+        abbr: party['abbr_' + lang],
+        name: party['name_' + lang],
         color: party.color,
         blackOrWhite: party.on_color,
         fontColor: party.on_white,
