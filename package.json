@@ -5,7 +5,9 @@
   "scripts": {
     "download": "gsheets --key 1PCD3se4Nc4ME-i391yPYyAlLdgtXoZJFoJy_6Mlf7BY --title colors --out definitions.json",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "eslint index.js",
+    "fix": "eslint --fix index.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,8 @@
   "author": "@angelozehr",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^6.3.0",
+    "eslint-plugin-es5": "^1.4.1",
     "gsheets": "^2.0.0",
     "jest": "^24.9.0"
   }
