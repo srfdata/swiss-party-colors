@@ -1,14 +1,14 @@
 # Swiss Party Colors
 
-This package offers party colors for most parties in Switzerland. Currently, **over 50 parties** have a corresponding color while another thirty parties are mentioned but have a grey color as they did not make a lot of votes in the past elections.
+This package offers party colors for most parties in Switzerland. Currently, **around 50 parties** have a corresponding color while another thirty parties are mentioned but have a grey color as they did not make a lot of votes in the past elections.
 
 
 ## What's defined?
 
 For each party, the following attributes are defined:
 
-- **Abbreviation**: or short `abbr` in German, French or Italian
-- **Name**: the full name of the party in German, French or Italian
+- **Abbreviation**: or short `abbr` in German (de), French (fr), Italian (it) or Rhaeto-Romanic (ro)
+- **Name**: the full name of the party in German (de), French (fr), Italian (it) or Rhaeto-Romanic (ro)
 - **Color**: the main color that can be used for data visualization
 - **Black/White**: write with either black or white on areas that have the main color
 - **Font Color**: a font color to use for text on white backgrounds
@@ -18,6 +18,8 @@ For each party, the following attributes are defined:
 #### Accessibility in mind
 
 The font colors have the same hue as the main colors but a different lightness. They have been chosen so that the contrast to the background is at least **1 to 4.5** according to [WebAIM](https://webaim.org/resources/contrastchecker/). That means they can be used with a font size of `18.66px` while conforming to the WCAG Level **AA**.
+
+Keep in mind: The formula to calculate contrast ratios is not perfect. A [twitter thread](https://twitter.com/angelozehr/status/1141240411333308417) has lead to the result that some entries in the column "Black/White" were changed to white in v1.1.0 even though the calcuation would suggest to use black on e.g. green.
 
 
 ## Preview
@@ -98,6 +100,19 @@ Returns the font color as a hex code for a given party abbreviation
 
 Returns the font color for dark backgrounds as a hex code for a given party abbreviation
 
+#### `get…ById`
+
+Since `v1.1.2` parties also have IDs. The ID is in the first column of the [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1PCD3se4Nc4ME-i391yPYyAlLdgtXoZJFoJy_6Mlf7BY). It can make sense to work with these IDs in your code and display the names / abbreviations / colors only in the frontend. Especially for this use the following functions were introduced:
+
+* `getPartyById (id, lang)`
+* `getPartyAbbrById (id, lang)`
+* `getPartyNameById (id, lang)`
+* `getPartyColorById (id)`
+* `getBlackOrWhiteById (id)`
+* `getPartyFontColorById (id)`
+* `getPartyFontColorOnBlackById (id)`
+
+They return the same as their abbreviaton-based counterparts documented above. The first three functions differ slightly as they also need a langauge code passed as an argument.
 
 ## Lizenz
 
