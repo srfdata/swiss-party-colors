@@ -3,11 +3,14 @@
   "version": "1.1.5",
   "description": "A list of Swiss party colors, names and abbreviations to use in data visualizations",
   "scripts": {
-    "download": "gsheets --key 1PCD3se4Nc4ME-i391yPYyAlLdgtXoZJFoJy_6Mlf7BY --title colors --out definitions.json",
+    "download": "NODE_ENV=production node ./downloadGsheets.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint index.js",
     "fix": "eslint --fix index.js"
+  },
+  "config": {
+    "googleSheetFileId": "1PCD3se4Nc4ME-i391yPYyAlLdgtXoZJFoJy_6Mlf7BY"
   },
   "repository": {
     "type": "git",
@@ -30,5 +33,9 @@
     "eslint-plugin-es5": "^1.4.1",
     "gsheets": "^2.0.0",
     "jest": "^24.9.0"
+  },
+  "dependencies": {
+    "axios": "^1.5.0",
+    "dotenv": "^16.3.1"
   }
 }
