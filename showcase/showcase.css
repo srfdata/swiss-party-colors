@@ -1,0 +1,62 @@
+html{
+    font-family: sans-serif;
+    padding: 36px 24px ;
+    font-size: 16px;
+}
+
+:root {
+    --primary: #757575;
+}
+
+h1{
+    margin: 6px 0 12px;
+}
+
+h3{
+    margin:0 0 3px;
+}
+
+p{
+    margin: 3px 0 12px;
+}
+
+.party-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(100px, 1fr));
+    gap: 48px 12px;
+}
+
+.party{
+    flex-basis: 100px;
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+
+.party__color-square{
+    width: 100%;
+    aspect-ratio: 1 ;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 3px;
+}
+
+.party__color-square--white{
+    background: #fafafa;
+}
+
+.party__color-square--black{
+    background: #050505;
+}
+
+.party__color{
+    color: #999999;
+    font-size: 0.8rem;
+}
+
+.party__names{
+    font-size: 0.8rem;
+}
