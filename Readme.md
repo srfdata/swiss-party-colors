@@ -24,13 +24,11 @@ Keep in mind: The formula to calculate contrast ratios is not perfect. A [twitte
 
 ## Preview
 
-![14 important parties in Switzerland](./big_14_german.png)
+![All parties in the national council](./nr_parties.png)
 
-This is how the colors for 14 of the most important parties in Switzerland look like. The abbreviations on the image are in German.
+This is how the colors for the parties currently represented in the swiss national council look like. The abbreviations on the image are in German.
 
-The colors have been chosen paying attention to the original color the parties use in their corporate design (mainly their logo). Secondly the colors were defined with the visual weight in mind. The lightness of all colors should be within a certain range so that no color looks heavier / more intense than any other. It was not possible that all colors have the same lightness in the HSL color system, but they are all not too bright and not too dark so that they can be used on dark and bright backgrounds:
-
-![all colors on a HSL color wheel](./circle.png)
+The colors have been chosen paying attention to the original color the parties use in their corporate design (mainly their logo). Secondly the colors were defined with the visual weight in mind. The lightness of all colors should be within a certain range so that no color looks heavier / more intense than any other. It was not possible that all colors have the same lightness in the HSL color system, but they are all not too bright and not too dark so that they can be used on dark and bright backgrounds.
 
 
 ## Collaboration
